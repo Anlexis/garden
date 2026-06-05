@@ -16,10 +16,9 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    // baseUrl is overwritten by the GitHub Pages deploy.yml at build time
-    // for the default <username>.github.io/<repo> URL. Set explicitly here
-    // for local preview; change to your custom domain when one is wired up.
-    baseUrl: "localhost:8080",
+    // Deploys to https://anlexis.github.io/garden. Change to your custom
+    // domain (without scheme, no trailing slash) once a CNAME is set up.
+    baseUrl: "anlexis.github.io/garden",
     ignorePatterns: [
       "private",
       "templates",
