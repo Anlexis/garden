@@ -8,7 +8,7 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "Quartz 4",
+    pageTitle: "Katherine's Garden",
     pageTitleSuffix: "",
     enableSPA: true,
     enablePopovers: true,
@@ -16,8 +16,21 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "quartz.jzhao.xyz",
-    ignorePatterns: ["private", "templates", ".obsidian"],
+    // baseUrl is overwritten by the GitHub Pages deploy.yml at build time
+    // for the default <username>.github.io/<repo> URL. Set explicitly here
+    // for local preview; change to your custom domain when one is wired up.
+    baseUrl: "localhost:8080",
+    ignorePatterns: [
+      "private",
+      "templates",
+      ".obsidian",
+      ".git",
+      "**/*.canvas",
+      "**/*.pdf",
+      "**/*.png",
+      "**/*.jpg",
+      "**/*.jpeg",
+    ],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
@@ -73,7 +86,9 @@ const config: QuartzConfig = {
       Plugin.Description(),
       Plugin.Latex({ renderEngine: "katex" }),
     ],
-    filters: [Plugin.RemoveDrafts()],
+    // ExplicitPublish: only notes with `publish: true` in frontmatter are
+    // published. RemoveDrafts keeps the safety net for any `draft: true` flag.
+    filters: [Plugin.RemoveDrafts(), Plugin.ExplicitPublish()],
     emitters: [
       Plugin.AliasRedirects(),
       Plugin.ComponentResources(),
